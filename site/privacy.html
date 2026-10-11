@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Privacy Policy — Chime In</title>
+<meta name="description" content="Chime In collects no data. Your key and settings stay on your device; post text is sent directly from your browser to OpenRouter only to generate the comment.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta property="og:title" content="Chime In privacy policy">
+<meta property="og:image" content="/assets/og.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><linearGradient id="skyg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7FB8FF"/><stop offset="1" stop-color="#2F6BFF"/></linearGradient><symbol id="logo" viewBox="0 0 32 32"><path fill="var(--bub, url(#skyg))" d="M6 3h20a5 5 0 0 1 5 5v13a5 5 0 0 1-5 5H16l-7.5 5.2V26H6a5 5 0 0 1-5-5V8a5 5 0 0 1 5-5z"/><path fill="var(--spark, #fff)" d="M16 7.5l1.9 5.1 5.1 1.9-5.1 1.9L16 21.5l-1.9-5.1L9 14.5l5.1-1.9z"/></symbol></defs></svg>
+<header class="doc-head">
+  <a class="brand dark" href="/"><svg class="logo" width="28" height="28"><use href="#logo"/></svg><span>Chime In</span></a>
+  <a class="back" href="/">← Back to home</a>
+</header>
+<main class="doc">
+  <h1>Privacy policy</h1>
+  <p class="date">Last updated: October 10, 2026</p>
+
+  <p class="tldr">Chime In collects no data. There are no accounts, no analytics and no Chime In servers. Your key and settings stay on your device.</p>
+
+  <h2>What Chime In does</h2>
+  <p>Chime In is a Chrome extension that helps you write comments on LinkedIn posts. When you pick a mode, it reads the text of the post you chose and anything you typed in the comment box, asks an AI model to write a comment, and places the result in the comment box. It never submits the comment for you.</p>
+
+  <h2>What is sent, and where</h2>
+  <p>To generate a comment, the extension sends the text of the post you choose and anything you typed directly from your browser to OpenRouter (and the model provider OpenRouter routes your request to), using your own OpenRouter API key. This is done solely to generate the comment. The request does not pass through any server operated by Chime In.</p>
+  <p>OpenRouter and the model provider handle that content under their own terms and privacy policies. We recommend reviewing them at <a href="https://openrouter.ai" rel="noopener">openrouter.ai</a>.</p>
+
+  <h2>What is stored on your device</h2>
+  <p>Your OpenRouter API key, your selected model, your custom modes, your edited prompts and your “About me / tone” text are stored in <code>chrome.storage.local</code> on your device. This data is not synced to us or to anyone else, and you can remove it at any time by clearing the extension’s data or uninstalling it.</p>
+
+  <h2>What we do not do</h2>
+  <ul>
+    <li>We do not collect, store or sell personal data.</li>
+    <li>We do not run analytics, tracking pixels or advertising.</li>
+    <li>We do not operate developer servers that receive your posts, comments or key.</li>
+    <li>We do not post, like or send anything on your behalf.</li>
+  </ul>
+
+  <h2>Permissions</h2>
+  <p>The extension only needs access to LinkedIn pages so it can read the post you select and fill in its comment box, and permission to store settings locally. It makes network requests only to OpenRouter.</p>
+
+  <h2>Open source</h2>
+  <p>Chime In is open source, so you can verify all of the above in the code: <a href="https://github.com/eteen12/chime-in" rel="noopener">github.com/eteen12/chime-in</a>.</p>
+
+  <h2>Changes and contact</h2>
+  <p>If this policy changes, the updated version and date will appear on this page. Questions or concerns? Open an issue at <a href="https://github.com/eteen12/chime-in/issues" rel="noopener">github.com/eteen12/chime-in/issues</a>.</p>
+  <p style="color:var(--muted);font-size:14px;margin-top:40px">Chime In is not affiliated with LinkedIn.</p>
+</main>
+</body>
+</html>

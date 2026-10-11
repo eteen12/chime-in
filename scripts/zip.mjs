@@ -1,0 +1,12 @@
+import { execFileSync } from 'node:child_process';
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const ext = path.join(root, 'extension');
+const { version } = JSON.parse(fs.readFileSync(path.join(ext, 'manifest.json'), 'utf8'));
+fs.mkdirSync(path.join(root, 'dist'), { recursive: true });
+const out = path.join(root, 'dist', `chime-in-${version}.zip`);
+fs.rmSync(out, { force: true });
+execFileSync('zip', ['-r', '-X', out, '.', '-x', 'test/*', '-x', '*.DS_Store'], { cwd: ext, stdio: 'inherit' });
+console.log('wrote', out);

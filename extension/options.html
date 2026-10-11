@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Chime In settings</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="lib/theme.css">
+  <link rel="stylesheet" href="options.css">
+</head>
+<body>
+  <div class="page">
+    <header class="hero">
+      <img class="logo big" src="icons/icon128.png" alt="">
+      <div>
+        <h1>Chime In</h1>
+        <p class="sub">Settings. Everything is saved automatically and stays in this browser.</p>
+      </div>
+      <span id="saved" class="saved" aria-live="polite"></span>
+    </header>
+
+    <section class="panel">
+      <div class="label">API key</div>
+      <h2>OpenRouter key</h2>
+      <p class="hint">Bring your own key. It is stored locally and only ever sent to openrouter.ai. Get one at <a href="https://openrouter.ai/keys" target="_blank" rel="noreferrer">openrouter.ai/keys</a>.</p>
+      <div class="field-row">
+        <input id="apiKey" type="password" placeholder="sk-or-v1-..." autocomplete="off" spellcheck="false">
+        <button id="toggleKey" class="btn" type="button">Show</button>
+        <button id="saveKey" class="btn primary" type="button">Save key</button>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="label">Model</div>
+      <h2>Which model writes</h2>
+      <p class="hint">Any OpenRouter model id. Default is a fast, cheap one.</p>
+      <input id="model" type="text" placeholder="deepseek/deepseek-v4.1-flash" spellcheck="false">
+    </section>
+
+    <section class="panel">
+      <div class="label">Your voice</div>
+      <h2>About you and your tone</h2>
+      <p class="hint">Added to every request. For example: "I'm a product manager at Northwind. Keep it casual and warm."</p>
+      <textarea id="about" rows="3" placeholder="Who you are and how you like to sound"></textarea>
+      <div class="toggles">
+        <label class="switch"><input type="checkbox" id="avoidEmojis"> Avoid emojis</label>
+        <label class="switch"><input type="checkbox" id="avoidHashtags"> Avoid hashtags</label>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head">
+        <div>
+          <div class="label">Modes</div>
+          <h2>Comment styles</h2>
+        </div>
+        <button id="addMode" class="btn primary" type="button">+ Add mode</button>
+      </div>
+      <p class="hint">Edit the built-in prompts, hide ones you do not use, or add your own. Order here is the order in the popup.</p>
+      <div id="modes" class="mode-list"></div>
+    </section>
+
+    <footer class="foot">Chime In never submits a comment. It only fills the box.</footer>
+  </div>
+  <script type="module" src="options.js"></script>
+</body>
+</html>

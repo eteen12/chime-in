@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chime In — LinkedIn comments in one click</title>
+<meta name="description" content="Chime In is a Chrome extension that writes a LinkedIn comment and drops it into the comment box. Pick a mode, review it, hit Post yourself. Bring your own OpenRouter key. Open source.">
+<meta name="theme-color" content="#3A74FF">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Chime In">
+<meta property="og:title" content="Chime In — LinkedIn comments in one click">
+<meta property="og:description" content="Your boss just posted. Chime in with one click. A Chrome extension that drafts the comment; you hit Post.">
+<meta property="og:image" content="/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Chime In — LinkedIn comments in one click">
+<meta name="twitter:description" content="Your boss just posted. Chime in with one click.">
+<meta name="twitter:image" content="/assets/og.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="skyg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7FB8FF"/><stop offset="1" stop-color="#2F6BFF"/></linearGradient>
+    <symbol id="logo" viewBox="0 0 32 32"><path fill="var(--bub, url(#skyg))" d="M6 3h20a5 5 0 0 1 5 5v13a5 5 0 0 1-5 5H16l-7.5 5.2V26H6a5 5 0 0 1-5-5V8a5 5 0 0 1 5-5z"/><path fill="var(--spark, #fff)" d="M16 7.5l1.9 5.1 5.1 1.9-5.1 1.9L16 21.5l-1.9-5.1L9 14.5l5.1-1.9z"/></symbol>
+    <symbol id="chrome" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="3.6" fill="currentColor"/><path d="M12 8.4h8.2M8.9 13.8L4.8 6.7M15.1 13.8l-4.1 7.1" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></symbol>
+    <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 2L4.5 13.5H11L10 22l8.5-11.5H12z" fill="currentColor"/></symbol>
+    <symbol id="i-bulb" viewBox="0 0 24 24"><path d="M9 18h6M10 21h4M12 3a6.5 6.5 0 0 0-3.6 11.9c.7.5 1.1 1.2 1.1 2.1h5c0-.9.4-1.6 1.1-2.1A6.5 6.5 0 0 0 12 3z" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-wand" viewBox="0 0 24 24"><path d="M5 19L15.5 8.5M14 4l.9 2.1L17 7l-2.1.9L14 10l-.9-2.1L11 7l2.1-.9zM19 11l.6 1.4 1.4.6-1.4.6L19 15l-.6-1.4L17 13l1.4-.6z" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-puzzle" viewBox="0 0 24 24"><path d="M10 4.5a2 2 0 1 1 4 0V6h3.5a1 1 0 0 1 1 1v3.5H20a2 2 0 1 1 0 4h-1.5V18a1 1 0 0 1-1 1H14v-1.5a2 2 0 1 0-4 0V19H6.5a1 1 0 0 1-1-1v-3.5H7a2 2 0 1 0 0-4H5.5V7a1 1 0 0 1 1-1H10z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-key" viewBox="0 0 24 24"><circle cx="8" cy="15" r="4.2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M11 12l9-9M16 7l3 3M14 9l2 2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4.5" y="10.5" width="15" height="10" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5" fill="none" stroke="currentColor" stroke-width="1.8"/></symbol>
+    <symbol id="i-hand" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M6 6l12 12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="i-code" viewBox="0 0 24 24"><path d="M8.5 7L3.5 12l5 5M15.5 7l5 5-5 5M13.5 5l-3 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+    <symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 7h9M17 7h3M4 17h3M11 17h9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="15" cy="7" r="2.2" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="9" cy="17" r="2.2" fill="none" stroke="currentColor" stroke-width="1.8"/></symbol>
+    <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8.5" r="3.6" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M4.5 20c.8-4 3.8-6 7.5-6s6.7 2 7.5 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="i-like" viewBox="0 0 24 24"><path d="M7 11v9H4v-9zM7 11l4-8c1.5 0 2.5 1 2.5 2.5L13 9h5.5a2 2 0 0 1 2 2.4l-1.4 7a2 2 0 0 1-2 1.6H7" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></symbol>
+    <symbol id="i-comment" viewBox="0 0 24 24"><path d="M4 5h16v11H11l-5 4v-4H4z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></symbol>
+    <symbol id="i-repost" viewBox="0 0 24 24"><path d="M4 11V9a3 3 0 0 1 3-3h11M15 3l3 3-3 3M20 13v2a3 3 0 0 1-3 3H6M9 21l-3-3 3-3" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-send" viewBox="0 0 24 24"><path d="M21 3L10 14M21 3l-7 18-4-7-7-4z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></symbol>
+  </defs>
+</svg>
+
+<!-- ============ HERO ============ -->
+<header class="hero" id="top">
+  <div class="sky" aria-hidden="true">
+    <div class="sun"></div>
+    <div class="cloud c1"></div><div class="cloud c2"></div><div class="cloud c3"></div>
+    <div class="mtns">
+      <svg class="m m1" viewBox="0 0 1440 400" aria-hidden="true"><defs><linearGradient id="mg1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#C3CFF8"/><stop offset=".7" stop-color="#F0E4F3"/><stop offset="1" stop-color="#FFE9D8"/></linearGradient></defs><path fill="url(#mg1)" d="M0 400 L0 165 L6 167 L11 168 L17 170 L23 170 L28 170 L34 171 L39 170 L45 169 L51 168 L56 167 L62 166 L68 167 L73 167 L79 168 L84 167 L90 167 L96 166 L101 166 L107 164 L113 160 L118 157 L124 155 L129 155 L135 154 L141 154 L146 153 L152 151 L158 149 L163 151 L169 150 L174 149 L180 147 L186 144 L191 142 L197 140 L203 139 L208 139 L214 138 L219 135 L225 133 L231 131 L236 129 L242 127 L248 124 L253 122 L259 122 L264 120 L270 120 L276 118 L281 117 L287 117 L293 116 L298 113 L304 116 L309 121 L315 127 L321 131 L326 136 L332 143 L338 148 L343 154 L349 161 L354 165 L360 171 L366 173 L371 176 L377 179 L383 181 L388 184 L394 185 L399 187 L405 190 L411 190 L416 191 L422 194 L428 194 L433 197 L439 197 L444 198 L450 200 L456 198 L461 199 L467 200 L473 202 L478 202 L484 204 L489 204 L495 206 L501 207 L506 208 L512 208 L518 209 L523 211 L529 213 L534 215 L540 216 L546 216 L551 214 L557 213 L563 214 L568 213 L574 212 L579 209 L585 207 L591 207 L596 206 L602 206 L608 206 L613 203 L619 200 L624 199 L630 197 L636 198 L641 199 L647 199 L653 201 L658 200 L664 199 L669 200 L675 199 L681 199 L686 199 L692 196 L698 195 L703 192 L709 190 L714 188 L720 185 L726 184 L731 183 L737 182 L743 182 L748 180 L754 180 L759 179 L765 176 L771 173 L776 170 L782 168 L788 166 L793 163 L799 161 L804 159 L810 155 L816 156 L821 159 L827 158 L833 159 L838 158 L844 157 L849 158 L855 158 L861 158 L866 156 L872 156 L878 153 L883 152 L889 150 L894 149 L900 146 L906 141 L911 137 L917 134 L923 133 L928 130 L934 126 L939 122 L945 117 L951 115 L956 110 L962 108 L968 105 L973 99 L979 96 L984 92 L990 87 L996 83 L1001 81 L1007 83 L1013 83 L1018 82 L1024 80 L1029 82 L1035 81 L1041 82 L1046 84 L1052 85 L1058 87 L1063 86 L1069 85 L1074 84 L1080 84 L1086 85 L1091 86 L1097 86 L1103 87 L1108 88 L1114 89 L1119 90 L1125 90 L1131 93 L1136 96 L1142 96 L1148 98 L1153 100 L1159 104 L1164 105 L1170 107 L1176 109 L1181 112 L1187 116 L1193 120 L1198 122 L1204 123 L1209 126 L1215 129 L1221 131 L1226 134 L1232 136 L1238 137 L1243 139 L1249 140 L1254 142 L1260 144 L1266 143 L1271 144 L1277 145 L1283 146 L1288 150 L1294 151 L1299 153 L1305 154 L1311 154 L1316 156 L1322 158 L1328 159 L1333 161 L1339 162 L1344 164 L1350 167 L1356 168 L1361 170 L1367 171 L1373 173 L1378 175 L1384 178 L1389 179 L1395 179 L1401 178 L1406 178 L1412 177 L1418 178 L1423 181 L1429 181 L1434 183 L1440 184 L1440 400 Z"/></svg>
+      <svg class="m m2" viewBox="0 0 1440 400" aria-hidden="true"><defs><linearGradient id="mg2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9AAEEF"/><stop offset=".75" stop-color="#D3CDF1"/><stop offset="1" stop-color="#F5E4EA"/></linearGradient></defs><path fill="url(#mg2)" d="M0 400 L0 269 L6 268 L11 267 L17 267 L23 267 L28 265 L34 264 L39 264 L45 265 L51 263 L56 260 L62 255 L68 250 L73 248 L79 246 L84 242 L90 240 L96 239 L101 238 L107 236 L113 237 L118 235 L124 235 L129 236 L135 236 L141 235 L146 232 L152 227 L158 224 L163 220 L169 216 L174 216 L180 214 L186 213 L191 214 L197 215 L203 214 L208 213 L214 213 L219 215 L225 216 L231 217 L236 220 L242 219 L248 219 L253 217 L259 214 L264 212 L270 210 L276 212 L281 212 L287 215 L293 217 L298 214 L304 214 L309 214 L315 214 L321 218 L326 218 L332 219 L338 221 L343 221 L349 224 L354 225 L360 225 L366 225 L371 226 L377 223 L383 221 L388 220 L394 217 L399 213 L405 208 L411 205 L416 203 L422 202 L428 201 L433 201 L439 200 L444 203 L450 204 L456 203 L461 203 L467 200 L473 195 L478 195 L484 191 L489 190 L495 186 L501 181 L506 177 L512 173 L518 168 L523 164 L529 161 L534 157 L540 155 L546 150 L551 145 L557 142 L563 136 L568 131 L574 126 L579 121 L585 119 L591 116 L596 111 L602 105 L608 99 L613 95 L619 89 L624 91 L630 97 L636 102 L641 104 L647 110 L653 114 L658 119 L664 124 L669 130 L675 137 L681 141 L686 145 L692 152 L698 156 L703 159 L709 162 L714 166 L720 168 L726 168 L731 169 L737 171 L743 174 L748 176 L754 175 L759 176 L765 177 L771 175 L776 175 L782 173 L788 169 L793 166 L799 166 L804 162 L810 159 L816 155 L821 154 L827 155 L833 154 L838 155 L844 157 L849 157 L855 156 L861 159 L866 158 L872 160 L878 160 L883 161 L889 160 L894 160 L900 160 L906 161 L911 162 L917 162 L923 164 L928 165 L934 165 L939 165 L945 163 L951 163 L956 163 L962 161 L968 160 L973 163 L979 164 L984 164 L990 161 L996 163 L1001 162 L1007 164 L1013 167 L1018 165 L1024 164 L1029 163 L1035 164 L1041 167 L1046 173 L1052 175 L1058 176 L1063 178 L1069 179 L1074 179 L1080 177 L1086 174 L1091 171 L1097 170 L1103 168 L1108 166 L1114 162 L1119 162 L1125 160 L1131 161 L1136 159 L1142 159 L1148 160 L1153 155 L1159 152 L1164 151 L1170 151 L1176 149 L1181 148 L1187 148 L1193 147 L1198 142 L1204 136 L1209 132 L1215 131 L1221 128 L1226 128 L1232 129 L1238 130 L1243 130 L1249 129 L1254 130 L1260 128 L1266 135 L1271 142 L1277 151 L1283 161 L1288 166 L1294 174 L1299 180 L1305 183 L1311 188 L1316 191 L1322 193 L1328 195 L1333 202 L1339 206 L1344 211 L1350 215 L1356 218 L1361 221 L1367 223 L1373 228 L1378 233 L1384 240 L1389 244 L1395 249 L1401 250 L1406 254 L1412 257 L1418 259 L1423 260 L1429 261 L1434 262 L1440 262 L1440 400 Z"/></svg>
+      <svg class="m m3" viewBox="0 0 1440 400" aria-hidden="true"><defs><linearGradient id="mg3" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7C8DE3"/><stop offset=".7" stop-color="#B7B8EA"/><stop offset="1" stop-color="#E7E1F2"/></linearGradient></defs><path fill="url(#mg3)" d="M0 400 L0 295 L6 293 L11 291 L17 290 L23 287 L28 285 L34 282 L39 279 L45 275 L51 274 L56 271 L62 268 L68 266 L73 262 L79 259 L84 256 L90 252 L96 249 L101 246 L107 242 L113 238 L118 233 L124 228 L129 224 L135 219 L141 215 L146 212 L152 208 L158 204 L163 201 L169 197 L174 199 L180 203 L186 206 L191 208 L197 211 L203 212 L208 214 L214 216 L219 217 L225 217 L231 217 L236 218 L242 218 L248 219 L253 219 L259 218 L264 219 L270 219 L276 221 L281 223 L287 226 L293 229 L298 230 L304 231 L309 233 L315 234 L321 234 L326 234 L332 234 L338 236 L343 236 L349 237 L354 238 L360 238 L366 237 L371 236 L377 235 L383 235 L388 235 L394 235 L399 235 L405 236 L411 238 L416 239 L422 240 L428 241 L433 240 L439 239 L444 238 L450 238 L456 237 L461 236 L467 235 L473 234 L478 235 L484 235 L489 235 L495 235 L501 236 L506 238 L512 237 L518 237 L523 237 L529 235 L534 234 L540 234 L546 232 L551 232 L557 229 L563 228 L568 227 L574 227 L579 227 L585 227 L591 227 L596 227 L602 228 L608 229 L613 229 L619 228 L624 227 L630 226 L636 223 L641 222 L647 220 L653 219 L658 217 L664 217 L669 215 L675 215 L681 214 L686 214 L692 212 L698 212 L703 210 L709 208 L714 208 L720 207 L726 208 L731 208 L737 208 L743 208 L748 209 L754 208 L759 208 L765 207 L771 205 L776 202 L782 202 L788 201 L793 200 L799 200 L804 199 L810 198 L816 196 L821 194 L827 193 L833 192 L838 190 L844 188 L849 186 L855 184 L861 182 L866 180 L872 177 L878 175 L883 176 L889 179 L894 180 L900 182 L906 184 L911 187 L917 190 L923 191 L928 193 L934 196 L939 197 L945 199 L951 201 L956 203 L962 207 L968 210 L973 213 L979 215 L984 218 L990 219 L996 220 L1001 223 L1007 225 L1013 228 L1018 230 L1024 233 L1029 235 L1035 237 L1041 241 L1046 243 L1052 246 L1058 249 L1063 252 L1069 256 L1074 258 L1080 261 L1086 263 L1091 265 L1097 268 L1103 270 L1108 274 L1114 276 L1119 278 L1125 281 L1131 280 L1136 280 L1142 280 L1148 281 L1153 282 L1159 284 L1164 285 L1170 285 L1176 285 L1181 286 L1187 287 L1193 288 L1198 288 L1204 288 L1209 288 L1215 289 L1221 290 L1226 290 L1232 292 L1238 293 L1243 293 L1249 293 L1254 293 L1260 294 L1266 294 L1271 293 L1277 292 L1283 291 L1288 291 L1294 292 L1299 291 L1305 293 L1311 292 L1316 293 L1322 294 L1328 294 L1333 295 L1339 297 L1344 299 L1350 300 L1356 299 L1361 300 L1367 300 L1373 302 L1378 303 L1384 303 L1389 302 L1395 301 L1401 303 L1406 306 L1412 307 L1418 307 L1423 308 L1429 308 L1434 308 L1440 309 L1440 400 Z"/></svg>
+      <svg class="m m4" viewBox="0 0 1440 400" aria-hidden="true"><defs><linearGradient id="mg4" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6372D4"/><stop offset=".55" stop-color="#A5A9E4"/><stop offset="1" stop-color="#FAF9F6"/></linearGradient></defs><path fill="url(#mg4)" d="M0 400 L0 298 L6 297 L11 297 L17 297 L23 297 L28 296 L34 296 L39 295 L45 294 L51 294 L56 294 L62 296 L68 298 L73 298 L79 297 L84 297 L90 297 L96 299 L101 300 L107 301 L113 303 L118 303 L124 305 L129 306 L135 308 L141 310 L146 310 L152 311 L158 311 L163 311 L169 313 L174 313 L180 314 L186 313 L191 312 L197 312 L203 312 L208 311 L214 311 L219 311 L225 311 L231 313 L236 314 L242 315 L248 316 L253 316 L259 315 L264 315 L270 316 L276 315 L281 316 L287 317 L293 316 L298 317 L304 316 L309 315 L315 314 L321 312 L326 311 L332 309 L338 309 L343 308 L349 308 L354 306 L360 305 L366 305 L371 306 L377 307 L383 309 L388 309 L394 309 L399 308 L405 308 L411 307 L416 305 L422 304 L428 303 L433 302 L439 302 L444 300 L450 298 L456 297 L461 295 L467 295 L473 295 L478 294 L484 295 L489 298 L495 300 L501 300 L506 301 L512 301 L518 303 L523 305 L529 305 L534 306 L540 307 L546 309 L551 311 L557 314 L563 316 L568 316 L574 318 L579 319 L585 319 L591 321 L596 323 L602 324 L608 326 L613 328 L619 329 L624 331 L630 334 L636 333 L641 333 L647 333 L653 333 L658 333 L664 333 L669 334 L675 335 L681 335 L686 333 L692 333 L698 332 L703 332 L709 333 L714 333 L720 332 L726 332 L731 331 L737 331 L743 330 L748 330 L754 329 L759 329 L765 329 L771 328 L776 328 L782 327 L788 326 L793 323 L799 322 L804 320 L810 318 L816 319 L821 319 L827 319 L833 319 L838 319 L844 319 L849 319 L855 319 L861 319 L866 320 L872 321 L878 322 L883 321 L889 320 L894 320 L900 320 L906 319 L911 319 L917 318 L923 318 L928 317 L934 316 L939 314 L945 313 L951 310 L956 308 L962 305 L968 304 L973 302 L979 299 L984 298 L990 296 L996 294 L1001 292 L1007 290 L1013 289 L1018 288 L1024 285 L1029 284 L1035 283 L1041 281 L1046 281 L1052 280 L1058 277 L1063 277 L1069 276 L1074 276 L1080 276 L1086 275 L1091 274 L1097 272 L1103 270 L1108 269 L1114 269 L1119 269 L1125 268 L1131 267 L1136 264 L1142 262 L1148 260 L1153 257 L1159 255 L1164 253 L1170 251 L1176 250 L1181 249 L1187 250 L1193 250 L1198 252 L1204 253 L1209 254 L1215 255 L1221 256 L1226 258 L1232 259 L1238 261 L1243 263 L1249 266 L1254 267 L1260 269 L1266 270 L1271 271 L1277 272 L1283 272 L1288 272 L1294 272 L1299 273 L1305 274 L1311 277 L1316 280 L1322 282 L1328 282 L1333 284 L1339 285 L1344 286 L1350 286 L1356 288 L1361 289 L1367 290 L1373 291 L1378 292 L1384 293 L1389 292 L1395 293 L1401 294 L1406 294 L1412 294 L1418 296 L1423 296 L1429 296 L1434 297 L1440 298 L1440 400 Z"/></svg>
+    </div>
+  </div>
+
+  <nav class="nav" aria-label="Main">
+    <a class="brand" href="/" aria-label="Chime In home"><svg class="logo" width="30" height="30"><use href="#logo"/></svg><span>Chime In</span></a>
+    <ul>
+      <li><a href="#how">How it works</a></li>
+      <li class="hide-sm"><a href="#modes">Modes</a></li>
+      <li><a href="https://github.com/eteen12/chime-in" rel="noopener">GitHub</a></li>
+    </ul>
+  </nav>
+
+  <div class="hero-copy wrap">
+    <p class="eyebrow">A Chrome extension for LinkedIn</p>
+    <h1>Your boss just posted.<br><em>Chime in</em> with one click.</h1>
+    <p class="sub">Chime In writes the comment and drops it straight into the post’s comment box. You read it, tweak it, and hit Post. It never posts for you.</p>
+    <a class="btn" href="#" data-store-link><svg width="22" height="22" aria-hidden="true"><use href="#chrome"/></svg>Add to Chrome — it’s free</a>
+    <p class="fine">Bring your own key · No account · Open source</p>
+  </div>
+</header>
+
+<main>
+<!-- ============ DEMO ============ -->
+<section class="demo" id="how" aria-labelledby="demo-h">
+  <h2 id="demo-h" class="sr-only">How Chime In works</h2>
+  <div class="demo-frame" id="demoFrame">
+    <div class="win" id="win" aria-hidden="true">
+      <div class="chrome-bar">
+        <div class="tabrow">
+          <span class="lights"><i></i><i></i><i></i></span>
+          <span class="tab"><b class="fav">in</b>Feed | LinkedIn<u>×</u></span>
+          <span class="newtab">+</span>
+        </div>
+        <div class="addr">
+          <span class="nav-btn">←</span><span class="nav-btn dim">→</span><span class="nav-btn">↻</span>
+          <span class="url"><svg width="12" height="12"><use href="#i-lock"/></svg>linkedin.com/feed</span>
+          <span class="ext puzzle"><svg width="18" height="18"><use href="#i-puzzle"/></svg></span>
+          <span class="ext chime" id="chimeBtn"><svg width="22" height="22"><use href="#logo"/></svg></span>
+          <span class="ext kebab">⋮</span>
+        </div>
+      </div>
+
+      <div class="viewport" id="viewport">
+        <div class="page" id="page">
+          <div class="site-head">
+            <b class="site-logo">in</b><span class="search">Search</span>
+            <span class="nav-ic"></span><span class="nav-ic"></span><span class="nav-ic"></span><span class="nav-ic"></span><span class="me"></span>
+          </div>
+          <div class="cols">
+            <aside class="side-l">
+              <div class="card prof"><div class="cover"></div><div class="av you">YO</div><b>You</b><span>Account Manager</span></div>
+              <div class="card small-list"><i></i><i></i><i></i></div>
+            </aside>
+            <div class="feed">
+              <div class="card composer"><div class="av you">YO</div><span class="pill">Start a post</span></div>
+
+              <article class="card post other">
+                <div class="p-head"><div class="av a2">PN</div><div><b>Priya Nair</b><span>Product Designer at Loom &amp; Lace · 1h</span></div></div>
+                <p>Small thing I keep relearning: the best design reviews start with “what are we trying to make easier?”</p>
+                <div class="bar"><span>Like</span><span>Comment</span><span>Repost</span><span>Send</span></div>
+              </article>
+
+              <article class="card post boss" id="bossPost">
+                <div class="p-head"><div class="av a1">MD</div><div><b>Mark Davidson</b><span>CEO at Northwind · 2h</span></div></div>
+                <p>Today we’re launching <strong>Northwind Atlas</strong>. Eighteen months ago we set one goal: get a new customer from sign-up to first result in minutes, not weeks. Today that’s real. Thank you to the team that made it happen. 🚀</p>
+                <div class="banner"><span>Northwind <i>Atlas</i></span></div>
+                <div class="counts"><span>👍 ❤️ 412</span><span>38 comments · 21 reposts</span></div>
+                <div class="bar">
+                  <span class="b-like"><svg width="18" height="18"><use href="#i-like"/></svg>Like</span>
+                  <span class="b-comment" id="commentBtn"><svg width="18" height="18"><use href="#i-comment"/></svg>Comment</span>
+                  <span><svg width="18" height="18"><use href="#i-repost"/></svg>Repost</span>
+                  <span><svg width="18" height="18"><use href="#i-send"/></svg>Send</span>
+                </div>
+                <div class="cwrap" id="cwrap"><div class="cinner">
+                  <div class="cbox">
+                    <div class="av you sm">YO</div>
+                    <div class="cfield">
+                      <div class="input" id="cinput"><span class="ph">Add a comment…</span><span class="txt" id="ctxt"></span><span class="caret" id="caret"></span></div>
+                      <div class="crow"><span class="ems">☺ &nbsp;▣</span><span class="postbtn" id="postBtn">Post</span></div>
+                    </div>
+                  </div>
+                </div></div>
+              </article>
+
+              <article class="card post other">
+                <div class="p-head"><div class="av a3">JO</div><div><b>Jordan Ellis</b><span>VP Sales at Brightfold · 3h</span></div></div>
+                <p>Q3 is wrapped. Proud of this team. Details in the comments.</p>
+                <div class="bar"><span>Like</span><span>Comment</span><span>Repost</span><span>Send</span></div>
+              </article>
+              <article class="card post other tall"><div class="p-head"><div class="av a2">AK</div><div><b>Amira Khan</b><span>Founder at Tideline · 5h</span></div></div><p>Hiring: two engineers who like boring infrastructure.</p></article>
+            </div>
+            <aside class="side-r">
+              <div class="card news"><b>LinkedIn News</b><i></i><i></i><i></i><i></i></div>
+            </aside>
+          </div>
+        </div>
+
+        <div class="toast" id="toast"><svg width="16" height="16"><use href="#i-check"/></svg>Ready — you hit Post.</div>
+      </div>
+
+      <!-- extension popup -->
+      <div class="popup" id="popup">
+        <div class="pp-head"><svg width="22" height="22"><use href="#logo"/></svg><b>Chime In</b><span class="pp-gear">⚙</span></div>
+        <div class="pp-chip"><span>Replying to</span><b>Mark Davidson</b> — We just launched…</div>
+        <div class="pp-modes" id="ppModes">
+          <div class="pp-mode" data-mode="quick"><span class="mi"><svg width="18" height="18"><use href="#i-bolt"/></svg></span><div><b>Quick</b><small>Short, simple, a bit vague</small></div></div>
+          <div class="pp-mode" data-mode="thoughtful"><span class="mi"><svg width="18" height="18"><use href="#i-bulb"/></svg></span><div><b>Thoughtful</b><small>Longer, picks a real point</small></div></div>
+          <div class="pp-mode" data-mode="cleanup"><span class="mi"><svg width="18" height="18"><use href="#i-wand"/></svg></span><div><b>Clean up</b><small>Polish what you typed</small></div></div>
+        </div>
+        <div class="pp-load" id="ppLoad"><div class="spin"></div><b>Writing…</b><i></i><i></i><i class="s"></i></div>
+        <div class="pp-foot"><span>Settings</span><kbd>Alt+Shift+C</kbd></div>
+      </div>
+
+      <div class="cursor" id="cursor"><svg width="22" height="26" viewBox="0 0 22 26"><path d="M2 1.5v19l5.2-4.6 3.4 7.6 3.2-1.5-3.4-7.4h7.4z" fill="#0E0F13" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/></svg></div>
+    </div>
+  </div>
+  <ol class="steps" id="steps" aria-label="How it works">
+    <li>Open a post</li><li>Click Chime In</li><li>Pick a mode</li><li>You hit Post</li>
+  </ol>
+</section>
+
+<!-- ============ MODES ============ -->
+<section class="sec" id="modes" aria-labelledby="modes-h">
+  <div class="wrap">
+    <p class="kicker">Modes</p>
+    <h2 id="modes-h">Three ways to <em>chime in</em></h2>
+    <p class="lede">Pick the effort level. Every mode is just a prompt, and you can edit all of them.</p>
+
+    <div class="cards3">
+      <article class="mode-card">
+        <div class="mc-top"><span class="mic"><svg width="22" height="22"><use href="#i-bolt"/></svg></span><h3>Quick</h3></div>
+        <p class="mc-desc">Short, simple, a bit vague. For the posts you only need to acknowledge.</p>
+        <div class="ba">
+          <div class="ba-l">The post</div>
+          <p class="ba-q">“Today we’re launching Northwind Atlas… sign-up to first result in minutes, not weeks.”</p>
+          <div class="ba-arrow" aria-hidden="true">↓</div>
+          <div class="ba-l acc">Chime In writes</div>
+          <p class="ba-a">Huge milestone, Mark. Congrats to the whole team!</p>
+        </div>
+      </article>
+
+      <article class="mode-card">
+        <div class="mc-top"><span class="mic"><svg width="22" height="22"><use href="#i-bulb"/></svg></span><h3>Thoughtful</h3></div>
+        <p class="mc-desc">Longer. Picks up a specific point from the post and makes a connection.</p>
+        <div class="ba">
+          <div class="ba-l">The post</div>
+          <p class="ba-q">“Today we’re launching Northwind Atlas… sign-up to first result in minutes, not weeks.”</p>
+          <div class="ba-arrow" aria-hidden="true">↓</div>
+          <div class="ba-l acc">Chime In writes</div>
+          <p class="ba-a">Congrats, Mark. Cutting sign-up to first result from weeks to minutes is the part that sticks with me. That’s what customers actually feel on day one. Well earned by the whole team.</p>
+        </div>
+      </article>
+
+      <article class="mode-card">
+        <div class="mc-top"><span class="mic"><svg width="22" height="22"><use href="#i-wand"/></svg></span><h3>Clean up</h3></div>
+        <p class="mc-desc">Type what you actually mean. Chime In turns it into something you’d sign.</p>
+        <div class="ba">
+          <div class="ba-l">You typed</div>
+          <p class="ba-q raw">bro this is sick congrats, we been needin this fr</p>
+          <div class="ba-arrow" aria-hidden="true">↓</div>
+          <div class="ba-l acc">Chime In writes</div>
+          <p class="ba-a">Congratulations, Mark — this is a launch we’ve been waiting for. Great work from the whole team.</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MAKE IT YOURS ============ -->
+<section class="sec tint" id="yours" aria-labelledby="yours-h">
+  <div class="wrap">
+    <div class="split">
+      <div class="split-copy">
+        <p class="kicker">Make it yours</p>
+        <h2 id="yours-h">It should sound like <em>you</em></h2>
+        <p class="lede left">Nothing is hidden behind the curtain. Open settings and everything that shapes a comment is right there.</p>
+        <ul class="feats">
+          <li><span class="fi"><svg width="20" height="20"><use href="#i-plus"/></svg></span><div><b>Custom modes</b><p>Add your own: “Ask a question”, “Dry humor”, “Supportive”. They show up next to the built-ins.</p></div></li>
+          <li><span class="fi"><svg width="20" height="20"><use href="#i-sliders"/></svg></span><div><b>Every prompt is editable</b><p>Rewrite the Quick, Thoughtful and Clean up prompts, or pick any OpenRouter model.</p></div></li>
+          <li><span class="fi"><svg width="20" height="20"><use href="#i-user"/></svg></span><div><b>About me and tone</b><p>Tell it your role, your voice, the words you’d never use. Comments stop sounding generic.</p></div></li>
+        </ul>
+      </div>
+      <figure class="shot shot-options">
+        <div class="frame"><img src="/assets/screens/options.png" width="900" height="2122" alt="Chime In settings page showing editable prompts, custom modes and an About me field" loading="lazy" decoding="async"></div>
+      </figure>
+    </div>
+
+    <div class="pops">
+      <figure class="shot">
+        <div class="frame pop"><img src="/assets/screens/popup.png" width="380" height="600" alt="The Chime In popup with Quick, Thoughtful and Clean up modes" loading="lazy" decoding="async"></div>
+        <figcaption><b>Pick a mode</b>One click on the toolbar icon, or Alt+Shift+C.</figcaption>
+      </figure>
+      <figure class="shot">
+        <div class="frame pop"><img src="/assets/screens/popup-result.png" width="380" height="811" alt="The Chime In popup after a comment was written into the comment box" loading="lazy" decoding="async"></div>
+        <figcaption><b>Review it, then post</b>The comment lands in the box. Edit freely.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ============ KEY / DATA ============ -->
+<section class="sec dark" id="privacy" aria-labelledby="data-h">
+  <div class="glow" aria-hidden="true"></div>
+  <div class="wrap">
+    <p class="kicker light">Privacy</p>
+    <h2 id="data-h">Your key, <em>your data</em></h2>
+    <p class="lede light">No account. No server of ours. No tracking. Chime In is a small extension that talks to one place: OpenRouter, with your key.</p>
+
+    <div class="flow" aria-label="Data flow: your browser to OpenRouter to the model">
+      <div class="node"><b>Your browser</b><span>Chime In + your key</span></div>
+      <div class="wire"><i></i></div>
+      <div class="node"><b>OpenRouter</b><span>routes to your model</span></div>
+      <div class="wire"><i></i></div>
+      <div class="node"><b>Comment</b><span>back in your comment box</span></div>
+    </div>
+
+    <div class="tiles">
+      <div class="tile"><svg width="24" height="24"><use href="#i-key"/></svg><b>Bring your own key</b><p>Use your OpenRouter key. Defaults to DeepSeek V4.1 Flash; any OpenRouter model works.</p></div>
+      <div class="tile"><svg width="24" height="24"><use href="#i-lock"/></svg><b>Stored locally</b><p>Your key and settings live in your browser. They never leave your device except to call OpenRouter.</p></div>
+      <div class="tile"><svg width="24" height="24"><use href="#i-hand"/></svg><b>Never auto-posts</b><p>It fills the comment box and stops. Posting is always your click.</p></div>
+      <div class="tile"><svg width="24" height="24"><use href="#i-code"/></svg><b>Open source</b><p>Read every line on <a href="https://github.com/eteen12/chime-in" rel="noopener">GitHub</a>. Fork it, audit it, change it.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="sec" id="faq" aria-labelledby="faq-h">
+  <div class="wrap narrow">
+    <p class="kicker">FAQ</p>
+    <h2 id="faq-h">Good questions</h2>
+    <div class="faq">
+      <details open><summary>Does it post for me?</summary><p>No. Chime In writes the comment into the comment box and stops. You read it, edit it if you want, and press Post yourself.</p></details>
+      <details><summary>What does it cost?</summary><p>The extension is free. You pay OpenRouter directly for what you use, and a short comment on a small model like DeepSeek V4.1 Flash costs pennies for hundreds of them.</p></details>
+      <details><summary>Which model does it use?</summary><p>DeepSeek V4.1 Flash by default, because it is fast and cheap. In settings you can switch to any model available on OpenRouter.</p></details>
+      <details><summary>Where do my key and posts go?</summary><p>Your key is stored in your browser on your device. When you generate a comment, the post text and anything you typed go straight from your browser to OpenRouter. There is no Chime In server in between.</p></details>
+      <details><summary>Can I make it sound like me?</summary><p>Yes. Edit any prompt, add custom modes, and fill in the “About me / tone” field so comments match your role and voice.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FINAL CTA ============ -->
+<section class="final" aria-labelledby="final-h">
+  <div class="final-sky" aria-hidden="true">
+    <div class="sun"></div>
+    <svg class="fm fm1" viewBox="0 0 1440 400" preserveAspectRatio="xMidYMax slice"><path fill="#C9A9E6" fill-opacity=".55" d="M0 400 L0 269 L6 268 L11 267 L17 267 L23 267 L28 265 L34 264 L39 264 L45 265 L51 263 L56 260 L62 255 L68 250 L73 248 L79 246 L84 242 L90 240 L96 239 L101 238 L107 236 L113 237 L118 235 L124 235 L129 236 L135 236 L141 235 L146 232 L152 227 L158 224 L163 220 L169 216 L174 216 L180 214 L186 213 L191 214 L197 215 L203 214 L208 213 L214 213 L219 215 L225 216 L231 217 L236 220 L242 219 L248 219 L253 217 L259 214 L264 212 L270 210 L276 212 L281 212 L287 215 L293 217 L298 214 L304 214 L309 214 L315 214 L321 218 L326 218 L332 219 L338 221 L343 221 L349 224 L354 225 L360 225 L366 225 L371 226 L377 223 L383 221 L388 220 L394 217 L399 213 L405 208 L411 205 L416 203 L422 202 L428 201 L433 201 L439 200 L444 203 L450 204 L456 203 L461 203 L467 200 L473 195 L478 195 L484 191 L489 190 L495 186 L501 181 L506 177 L512 173 L518 168 L523 164 L529 161 L534 157 L540 155 L546 150 L551 145 L557 142 L563 136 L568 131 L574 126 L579 121 L585 119 L591 116 L596 111 L602 105 L608 99 L613 95 L619 89 L624 91 L630 97 L636 102 L641 104 L647 110 L653 114 L658 119 L664 124 L669 130 L675 137 L681 141 L686 145 L692 152 L698 156 L703 159 L709 162 L714 166 L720 168 L726 168 L731 169 L737 171 L743 174 L748 176 L754 175 L759 176 L765 177 L771 175 L776 175 L782 173 L788 169 L793 166 L799 166 L804 162 L810 159 L816 155 L821 154 L827 155 L833 154 L838 155 L844 157 L849 157 L855 156 L861 159 L866 158 L872 160 L878 160 L883 161 L889 160 L894 160 L900 160 L906 161 L911 162 L917 162 L923 164 L928 165 L934 165 L939 165 L945 163 L951 163 L956 163 L962 161 L968 160 L973 163 L979 164 L984 164 L990 161 L996 163 L1001 162 L1007 164 L1013 167 L1018 165 L1024 164 L1029 163 L1035 164 L1041 167 L1046 173 L1052 175 L1058 176 L1063 178 L1069 179 L1074 179 L1080 177 L1086 174 L1091 171 L1097 170 L1103 168 L1108 166 L1114 162 L1119 162 L1125 160 L1131 161 L1136 159 L1142 159 L1148 160 L1153 155 L1159 152 L1164 151 L1170 151 L1176 149 L1181 148 L1187 148 L1193 147 L1198 142 L1204 136 L1209 132 L1215 131 L1221 128 L1226 128 L1232 129 L1238 130 L1243 130 L1249 129 L1254 130 L1260 128 L1266 135 L1271 142 L1277 151 L1283 161 L1288 166 L1294 174 L1299 180 L1305 183 L1311 188 L1316 191 L1322 193 L1328 195 L1333 202 L1339 206 L1344 211 L1350 215 L1356 218 L1361 221 L1367 223 L1373 228 L1378 233 L1384 240 L1389 244 L1395 249 L1401 250 L1406 254 L1412 257 L1418 259 L1423 260 L1429 261 L1434 262 L1440 262 L1440 400 Z"/></svg>
+    <svg class="fm fm2" viewBox="0 0 1440 400" preserveAspectRatio="xMidYMax slice"><path fill="#8C7CCB" fill-opacity=".8" d="M0 400 L0 295 L6 293 L11 291 L17 290 L23 287 L28 285 L34 282 L39 279 L45 275 L51 274 L56 271 L62 268 L68 266 L73 262 L79 259 L84 256 L90 252 L96 249 L101 246 L107 242 L113 238 L118 233 L124 228 L129 224 L135 219 L141 215 L146 212 L152 208 L158 204 L163 201 L169 197 L174 199 L180 203 L186 206 L191 208 L197 211 L203 212 L208 214 L214 216 L219 217 L225 217 L231 217 L236 218 L242 218 L248 219 L253 219 L259 218 L264 219 L270 219 L276 221 L281 223 L287 226 L293 229 L298 230 L304 231 L309 233 L315 234 L321 234 L326 234 L332 234 L338 236 L343 236 L349 237 L354 238 L360 238 L366 237 L371 236 L377 235 L383 235 L388 235 L394 235 L399 235 L405 236 L411 238 L416 239 L422 240 L428 241 L433 240 L439 239 L444 238 L450 238 L456 237 L461 236 L467 235 L473 234 L478 235 L484 235 L489 235 L495 235 L501 236 L506 238 L512 237 L518 237 L523 237 L529 235 L534 234 L540 234 L546 232 L551 232 L557 229 L563 228 L568 227 L574 227 L579 227 L585 227 L591 227 L596 227 L602 228 L608 229 L613 229 L619 228 L624 227 L630 226 L636 223 L641 222 L647 220 L653 219 L658 217 L664 217 L669 215 L675 215 L681 214 L686 214 L692 212 L698 212 L703 210 L709 208 L714 208 L720 207 L726 208 L731 208 L737 208 L743 208 L748 209 L754 208 L759 208 L765 207 L771 205 L776 202 L782 202 L788 201 L793 200 L799 200 L804 199 L810 198 L816 196 L821 194 L827 193 L833 192 L838 190 L844 188 L849 186 L855 184 L861 182 L866 180 L872 177 L878 175 L883 176 L889 179 L894 180 L900 182 L906 184 L911 187 L917 190 L923 191 L928 193 L934 196 L939 197 L945 199 L951 201 L956 203 L962 207 L968 210 L973 213 L979 215 L984 218 L990 219 L996 220 L1001 223 L1007 225 L1013 228 L1018 230 L1024 233 L1029 235 L1035 237 L1041 241 L1046 243 L1052 246 L1058 249 L1063 252 L1069 256 L1074 258 L1080 261 L1086 263 L1091 265 L1097 268 L1103 270 L1108 274 L1114 276 L1119 278 L1125 281 L1131 280 L1136 280 L1142 280 L1148 281 L1153 282 L1159 284 L1164 285 L1170 285 L1176 285 L1181 286 L1187 287 L1193 288 L1198 288 L1204 288 L1209 288 L1215 289 L1221 290 L1226 290 L1232 292 L1238 293 L1243 293 L1249 293 L1254 293 L1260 294 L1266 294 L1271 293 L1277 292 L1283 291 L1288 291 L1294 292 L1299 291 L1305 293 L1311 292 L1316 293 L1322 294 L1328 294 L1333 295 L1339 297 L1344 299 L1350 300 L1356 299 L1361 300 L1367 300 L1373 302 L1378 303 L1384 303 L1389 302 L1395 301 L1401 303 L1406 306 L1412 307 L1418 307 L1423 308 L1429 308 L1434 308 L1440 309 L1440 400 Z"/></svg>
+    <svg class="fm fm3" viewBox="0 0 1440 400" preserveAspectRatio="xMidYMax slice"><path fill="#4E4A9E" d="M0 400 L0 298 L6 297 L11 297 L17 297 L23 297 L28 296 L34 296 L39 295 L45 294 L51 294 L56 294 L62 296 L68 298 L73 298 L79 297 L84 297 L90 297 L96 299 L101 300 L107 301 L113 303 L118 303 L124 305 L129 306 L135 308 L141 310 L146 310 L152 311 L158 311 L163 311 L169 313 L174 313 L180 314 L186 313 L191 312 L197 312 L203 312 L208 311 L214 311 L219 311 L225 311 L231 313 L236 314 L242 315 L248 316 L253 316 L259 315 L264 315 L270 316 L276 315 L281 316 L287 317 L293 316 L298 317 L304 316 L309 315 L315 314 L321 312 L326 311 L332 309 L338 309 L343 308 L349 308 L354 306 L360 305 L366 305 L371 306 L377 307 L383 309 L388 309 L394 309 L399 308 L405 308 L411 307 L416 305 L422 304 L428 303 L433 302 L439 302 L444 300 L450 298 L456 297 L461 295 L467 295 L473 295 L478 294 L484 295 L489 298 L495 300 L501 300 L506 301 L512 301 L518 303 L523 305 L529 305 L534 306 L540 307 L546 309 L551 311 L557 314 L563 316 L568 316 L574 318 L579 319 L585 319 L591 321 L596 323 L602 324 L608 326 L613 328 L619 329 L624 331 L630 334 L636 333 L641 333 L647 333 L653 333 L658 333 L664 333 L669 334 L675 335 L681 335 L686 333 L692 333 L698 332 L703 332 L709 333 L714 333 L720 332 L726 332 L731 331 L737 331 L743 330 L748 330 L754 329 L759 329 L765 329 L771 328 L776 328 L782 327 L788 326 L793 323 L799 322 L804 320 L810 318 L816 319 L821 319 L827 319 L833 319 L838 319 L844 319 L849 319 L855 319 L861 319 L866 320 L872 321 L878 322 L883 321 L889 320 L894 320 L900 320 L906 319 L911 319 L917 318 L923 318 L928 317 L934 316 L939 314 L945 313 L951 310 L956 308 L962 305 L968 304 L973 302 L979 299 L984 298 L990 296 L996 294 L1001 292 L1007 290 L1013 289 L1018 288 L1024 285 L1029 284 L1035 283 L1041 281 L1046 281 L1052 280 L1058 277 L1063 277 L1069 276 L1074 276 L1080 276 L1086 275 L1091 274 L1097 272 L1103 270 L1108 269 L1114 269 L1119 269 L1125 268 L1131 267 L1136 264 L1142 262 L1148 260 L1153 257 L1159 255 L1164 253 L1170 251 L1176 250 L1181 249 L1187 250 L1193 250 L1198 252 L1204 253 L1209 254 L1215 255 L1221 256 L1226 258 L1232 259 L1238 261 L1243 263 L1249 266 L1254 267 L1260 269 L1266 270 L1271 271 L1277 272 L1283 272 L1288 272 L1294 272 L1299 273 L1305 274 L1311 277 L1316 280 L1322 282 L1328 282 L1333 284 L1339 285 L1344 286 L1350 286 L1356 288 L1361 289 L1367 290 L1373 291 L1378 292 L1384 293 L1389 292 L1395 293 L1401 294 L1406 294 L1412 294 L1418 296 L1423 296 L1429 296 L1434 297 L1440 298 L1440 400 Z"/></svg>
+  </div>
+  <div class="final-copy wrap">
+    <h2 id="final-h">Next time, <em>chime in.</em></h2>
+    <p class="sub">Free, open source, and set up in under a minute.</p>
+    <a class="btn" href="#" data-store-link><svg width="22" height="22" aria-hidden="true"><use href="#chrome"/></svg>Add to Chrome — it’s free</a>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-in">
+    <a class="brand dark" href="/"><svg class="logo" width="26" height="26"><use href="#logo"/></svg><span>Chime In</span></a>
+    <nav aria-label="Footer"><a href="https://github.com/eteen12/chime-in" rel="noopener">GitHub</a><a href="/privacy">Privacy</a></nav>
+    <p>Not affiliated with LinkedIn. LinkedIn is a trademark of its respective owner.</p>
+  </div>
+</footer>
+
+<script src="/app.js"></script>
+</body>
+</html>

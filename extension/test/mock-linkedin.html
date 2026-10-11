@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>(3) Feed | LinkedIn (mock)</title>
+<style>
+  body{margin:0;background:#f4f2ee;font:14px/1.4 system-ui,sans-serif;color:#191919}
+  .nav{height:52px;background:#fff;border-bottom:1px solid #e0dfdc;display:flex;align-items:center;gap:14px;padding:0 24px;font-weight:800;color:#fff}.nav i{background:#0a66c2;border-radius:4px;padding:0 6px;font-style:normal;font-size:20px}.nav span{background:#edf3f8;border-radius:4px;color:#666;font-weight:400;font-size:14px;padding:7px 120px 7px 12px}
+  #feed{max-width:555px;margin:18px auto;display:grid;gap:10px;padding:0}
+  .card{background:#fff;border:1px solid #e0dfdc;border-radius:10px;padding:12px 16px}
+  .actor{display:flex;gap:10px;align-items:center;margin-bottom:8px}
+  .avatar{width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#7FB8FF,#2F6BFF);flex:none}
+  .actor b{display:block}.actor small{color:#666}
+  .menu{margin-left:auto;border:0;background:none;font-size:20px;color:#666}
+  .body{white-space:pre-line;margin:4px 0 8px}
+  .more{border:0;background:none;color:#666;cursor:pointer;padding:0}
+  .bar{display:flex;gap:6px;border-top:1px solid #eee;padding-top:6px;margin-top:8px}
+  .bar button{flex:1;border:0;background:none;padding:10px;border-radius:6px;font-weight:600;color:#555;cursor:pointer}
+  .bar button:hover{background:#f3f2ef}
+  .liked{font-size:12px;color:#666;margin-bottom:6px}
+  .box{margin-top:8px}
+  .tiptap{border:1px solid #bbb;border-radius:20px;padding:10px 14px;min-height:40px;outline:none}
+  .tiptap p{margin:0}
+  .tiptap p.is-empty::before{content:attr(data-placeholder);color:#888;float:left;height:0;pointer-events:none}
+  .submit{margin-top:8px;border:0;background:#0a66c2;color:#fff;border-radius:16px;padding:6px 16px;font-weight:600;font-size:14px}
+  .submit[disabled]{background:#e0dfdc;color:#999}
+  #posted-log{display:none}
+</style></head>
+<body>
+<div class="nav"><i>in</i><span>Search</span></div>
+<div role="list" data-testid="mainFeed" id="feed">
+
+  <div role="listitem" componentkey="update-card-focus-1-aaa">
+    <div class="card">
+      <div class="liked">Priya Shah likes this</div>
+      <div class="actor"><div class="avatar"></div><div><a href="/in/jordan-lee/"><b>Jordan Lee</b></a><small>Design lead at Fieldnote</small></div>
+        <button class="menu" aria-label="Open control menu for post by Jordan Lee">...</button></div>
+      <div class="body" data-testid="expandable-text-box">Spent the week redesigning our onboarding flow. Cutting three steps took drop-off from 41% to 29%. Sometimes the best design is deletion.</div>
+      <div class="bar"><button aria-label="React Like">Like</button><button aria-label="Comment" class="c">12</button><button aria-label="Repost">Repost</button><button aria-label="Send in a private message">Send</button></div>
+      <div class="box"></div>
+    </div>
+  </div>
+
+  <div role="listitem" componentkey="update-card-focus-2-bbb">
+    <div class="card">
+      <div class="actor"><div class="avatar"></div><div><a href="/in/mark-davidson/"><b>Mark Davidson</b></a><small>CEO at Northwind</small></div>
+        <button class="menu" aria-label="Open control menu for post by Mark Davidson">...</button></div>
+      <div class="body" data-testid="expandable-text-box">Thrilled to announce that Northwind Pulse is now live! After 18 months of work, our team has shipped a real-time inventory dashboard that helps independent retailers see stock levels across every store in one place. Huge thanks to the engineers, designers and early customers who made this happen. This is only the beginning. <button class="more" data-testid="expandable-text-button" onclick="this.remove()">... more</button></div>
+      <div class="bar"><button aria-label="React Like">Like</button><button aria-label="Comment" class="c">101</button><button aria-label="Repost">Repost</button><button aria-label="Send in a private message">Send</button></div>
+      <div class="box"></div>
+    </div>
+  </div>
+
+  <div role="listitem" componentkey="update-card-focus-3-ccc">
+    <div class="card">
+      <div class="actor"><div class="avatar"></div><div><a href="/in/ana-ruiz/"><b>Ana Ruiz</b></a><small>Engineering manager at Lumen</small></div>
+        <button class="menu" aria-label="Hide post by Ana Ruiz">...</button></div>
+      <div class="body" data-testid="expandable-text-box">Hiring season reminder: the best interview question I ever asked was "what did you change your mind about this year?" The answers tell you more than any whiteboard.</div>
+      <div class="bar"><button aria-label="React Like">Like</button><button aria-label="Comment" class="c">4</button><button aria-label="Repost">Repost</button><button aria-label="Send in a private message">Send</button></div>
+      <div class="box"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+  window.__posted = [];
+  document.querySelectorAll('button.c').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const card = btn.closest('.card'), box = card.querySelector('.box');
+      if (box.firstChild) return;
+      // comment box shows up asynchronously, like LinkedIn
+      setTimeout(() => {
+        box.innerHTML = `<div componentkey="asyncInlineCommentBox-${Math.random().toString(36).slice(2)}">
+          <div data-testid="ui-core-tiptap-text-editor-wrapper">
+            <div class="tiptap ProseMirror" contenteditable="true" role="textbox" aria-label="Text editor for creating comment"><p data-placeholder="Add a comment..." class="is-empty"><br></p></div>
+          </div>
+          <button class="submit" disabled>Comment</button></div>`;
+        const ed = box.querySelector('.ProseMirror'), sub = box.querySelector('.submit');
+        ed.addEventListener('input', () => {
+          const has = ed.innerText.trim().length > 0;
+          sub.disabled = !has;
+          ed.querySelectorAll('p').forEach((p) => p.classList.toggle('is-empty', !has));
+        });
+        sub.addEventListener('click', () => { window.__posted.push(ed.innerText); });
+      }, 1500); // lazy mount, like the real site
+    });
+  });
+</script>
+</body></html>

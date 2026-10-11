@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Chime In</title>
+  <meta name="viewport" content="width=380">
+  <link rel="stylesheet" href="lib/theme.css">
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <header class="top">
+    <div class="brand"><img class="logo" src="icons/icon48.png" alt=""><span>Chime In</span></div>
+    <button id="openSettings" class="icon-btn" title="Settings" aria-label="Settings">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.9.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.9l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.9.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.9-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.9V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>
+    </button>
+  </header>
+
+  <main id="app">
+    <!-- no API key -->
+    <section id="viewKey" hidden>
+      <p class="label">Get started</p>
+      <p class="lead">Paste your OpenRouter API key. It stays on this device and is only sent to OpenRouter.</p>
+      <input id="keyInput" type="password" placeholder="sk-or-v1-..." autocomplete="off" spellcheck="false">
+      <div class="row">
+        <a href="https://openrouter.ai/keys" target="_blank" rel="noreferrer">Get a key at openrouter.ai/keys</a>
+        <button id="saveKey" class="btn primary">Save key</button>
+      </div>
+    </section>
+
+    <!-- empty state -->
+    <section id="viewEmpty" hidden class="empty">
+      <div class="empty-art">💬</div>
+      <h2 id="emptyTitle">Open a LinkedIn post</h2>
+      <p id="emptyText">Go to a post on linkedin.com, click into its comment box, then open Chime In.</p>
+    </section>
+
+    <!-- main -->
+    <section id="viewMain" hidden>
+      <div class="post" id="post">
+        <div class="label">Commenting on</div>
+        <div class="post-author" id="postAuthor"></div>
+        <div class="post-text" id="postText"></div>
+      </div>
+
+      <div class="label sect">Pick a style</div>
+      <div id="modes" class="modes"></div>
+
+      <div id="inputBox" class="input-box" hidden>
+        <textarea id="draft" rows="3" placeholder="Say it however you like, e.g. bro this is sick, we did smth like this at work lol"></textarea>
+        <button id="go" class="btn primary wide">Write it up</button>
+      </div>
+
+      <div id="result" class="result" hidden>
+        <div class="result-head">
+          <span class="label" id="resultLabel">Comment</span>
+          <span id="resultStatus" class="status"></span>
+        </div>
+        <div id="resultBody" class="result-body"></div>
+        <div id="resultActions" class="actions">
+          <button id="regen" class="btn sm">Regenerate</button>
+          <button id="copy" class="btn sm">Copy</button>
+          <button id="again" class="btn sm">Insert again</button>
+        </div>
+      </div>
+      <p class="foot">Chime In never posts for you. Review and press Post yourself.</p>
+    </section>
+  </main>
+  <script type="module" src="popup.js"></script>
+</body>
+</html>
