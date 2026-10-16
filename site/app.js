@@ -1,6 +1,5 @@
 // Single source of truth for the "Add to Chrome" destination.
-// Swap this for the Chrome Web Store URL once the listing is live.
-const STORE_URL = "https://github.com/eteen12/chime-in";
+const STORE_URL = "https://chromewebstore.google.com/detail/chime-in/cejmclgclpggcebfelilehdmgnnlhdom";
 document.querySelectorAll("[data-store-link]").forEach((a) => {
   a.href = STORE_URL;
   a.dataset.storeUrl = STORE_URL;
